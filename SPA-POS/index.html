@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY CART - POS System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <!-- login section -->
+
+    <section id="loginSection" class="login-wrapper">
+        <div class="login-box">
+            <div class="logo-area">
+                <i class="fa-solid fa-cart-shopping cart-logo"></i>
+                <h2>MY CART</h2>
+                <p>Please enter your credentials to continue.</p>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="txtUsername">Username</label>
+                    <input type="text" id="txtUsername" placeholder="Enter username">
+                </div>
+                <div class="input-group">
+                    <label for="txtPassword">Password</label>
+                    <input type="password" id="txtPassword" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+        </div>
+    </section>
+
+    
+    <main id="mainApp" style="display: none;">
+        
+        <!-- Sidebar  -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-cart-shopping cart-logo"></i>
+                <h2>MY CART</h2>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item active" data-target="dashboardSection"><i class="fa-solid fa-border-all"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-item" data-target="customerSection"><i class="fa-solid fa-users"></i> Manage Customers</a></li>
+                <li><a href="#" class="nav-item" data-target="itemSection"><i class="fa-solid fa-box-open"></i> Manage Items</a></li>
+                <li><a href="#" class="nav-item" data-target="orderSection"><i class="fa-solid fa-cart-arrow-down"></i> Place Order</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item" data-target="settingsSection"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" id="btnLogout" class="nav-item text-danger"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+        </aside>
+
+        <div class="content-area">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="page-section">
+                <h2 class="section-title">Dashboard</h2>
+                
+                <div class="dashboard-cards">
+                    <div class="card card-blue">
+                        <div class="card-info">
+                            <h3>Total Customers</h3>
+                            <p id="lblTotalCustomers">0</p>
+                        </div>
+                        <i class="fa-solid fa-users card-icon"></i>
+                    </div>
+                    <div class="card card-pink">
+                        <div class="card-info">
+                            <h3>Total Items</h3>
+                            <p id="lblTotalItems">0</p>
+                        </div>
+                        <i class="fa-solid fa-box-open card-icon"></i>
+                    </div>
+                    <div class="card card-green">
+                        <div class="card-info">
+                            <h3>Total Orders</h3>
+                            <p id="lblTotalOrders">0</p>
+                        </div>
+                        <i class="fa-solid fa-chart-line card-icon"></i>
+                    </div>
+                </div>
+
+                <div class="dashboard-activity">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Recent Orders</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer ID</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentOrdersTableBody">
+                                    <!-- Populate -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Section -->
+            <section id="customerSection" class="page-section" style="display: none;">
+                <h2 class="section-title">CUSTOMERS</h2>
+                
+                <div class="two-col-layout">
+                    <div class="panel form-panel">
+                        <div class="panel-header">
+                            <h3>Customer Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="customerForm">
+                                <div class="input-group search-group">
+                                    <input type="text" id="txtSearchCustomer" placeholder="Search Customer ID/Name...">
+                                    <button type="button" id="btnSearchCustomer" class="btn btn-secondary">Search</button>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label>Customer ID</label>
+                                    <input type="text" id="txtCusId" placeholder="C001">
+                                </div>
+                                <div class="input-group">
+                                    <label>Name</label>
+                                    <input type="text" id="txtCusName" placeholder="Kamal Perera">
+                                </div>
+                                <div class="input-group">
+                                    <label>Address</label>
+                                    <input type="text" id="txtCusAddress" placeholder="Colombo">
+                                </div>
+                                <div class="input-group">
+                                    <label>Salary</label>
+                                    <input type="text" id="txtCusSalary" placeholder="50000">
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" id="btnSaveCustomer" class="btn btn-primary">Save</button>
+                                    <button type="button" id="btnUpdateCustomer" class="btn btn-warning">Update</button>
+                                    <button type="button" id="btnDeleteCustomer" class="btn btn-danger">Delete</button>
+                                    <button type="button" id="btnClearCustomer" class="btn btn-light">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="panel table-panel">
+                        <div class="panel-header">
+                            <h3>All Customers</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customerTableBody">
+                                    <!-- Populate -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Item Section -->
+            <section id="itemSection" class="page-section" style="display: none;">
+                <h2 class="section-title">ITEMS</h2>
+                
+                <div class="two-col-layout">
+                    <div class="panel form-panel">
+                        <div class="panel-header">
+                            <h3>Item Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="itemForm">
+                                <div class="input-group search-group">
+                                    <input type="text" id="txtSearchItem" placeholder="Search Item Code/Desc...">
+                                    <button type="button" id="btnSearchItem" class="btn btn-secondary">Search</button>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label>Item Code</label>
+                                    <input type="text" id="txtItemCode" placeholder="I001">
+                                </div>
+                                <div class="input-group">
+                                    <label>Description</label>
+                                    <input type="text" id="txtItemDesc" placeholder="Keells Rice 1kg">
+                                </div>
+                                <div class="input-group">
+                                    <label>Unit Price</label>
+                                    <input type="number" id="txtItemPrice" placeholder="150.00">
+                                </div>
+                                <div class="input-group">
+                                    <label>Qty On Hand</label>
+                                    <input type="number" id="txtItemQty" placeholder="100">
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" id="btnSaveItem" class="btn btn-primary">Save</button>
+                                    <button type="button" id="btnUpdateItem" class="btn btn-warning">Update</button>
+                                    <button type="button" id="btnDeleteItem" class="btn btn-danger">Delete</button>
+                                    <button type="button" id="btnClearItem" class="btn btn-light">Clear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="panel table-panel">
+                        <div class="panel-header">
+                            <h3>All Items</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Qty On Hand</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemTableBody">
+                                    <!-- Populate -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Place Order  -->
+            <section id="orderSection" class="page-section" style="display: none;">
+                <h2 class="section-title">PLACE ORDER</h2>
+                
+                <div class="order-layout">
+                    <!-- Invoice  -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Invoice Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Order ID</label>
+                                        <input type="text" id="txtOrderId" disabled>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Date</label>
+                                        <input type="date" id="txtOrderDate" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Customer</label>
+                                        <select id="cmbOrderCustomerId">
+                                            <option value="">Select Customer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Customer Name</label>
+                                        <input type="text" id="txtOrderCustomerName" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group search-group mt-2">
+                                <input type="text" id="txtSearchOrder" placeholder="Search past Order by ID...">
+                                <button type="button" id="btnSearchOrder" class="btn btn-secondary">Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Details -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Select Item</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Item</label>
+                                        <select id="cmbOrderItemCode">
+                                            <option value="">Select Item</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Item Description</label>
+                                        <input type="text" id="txtOrderItemDesc" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Price</label>
+                                        <input type="text" id="txtOrderItemPrice" disabled>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Qty On Hand</label>
+                                        <input type="text" id="txtOrderItemQtyOnHand" disabled>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group">
+                                        <label>Order Qty</label>
+                                        <input type="number" id="txtOrderQty" min="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions mt-2" style="justify-content: flex-end;">
+                                <button type="button" id="btnAddToCart" class="btn btn-warning">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Table -->
+                <div class="order-bottom-layout mt-3">
+                    <div class="panel cart-panel">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Item Code</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartTableBody">
+                                <!-- Populate -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel summary-panel">
+                        <h2 class="text-danger">Total: <span id="lblTotal">0.00</span></h2>
+                        <h3 class="text-primary mt-1">Sub Total: <span id="lblSubTotal">0.00</span></h3>
+                        
+                        <div class="row mt-2">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label>Cash</label>
+                                    <input type="number" id="txtCash" placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <label>Discount (%)</label>
+                                    <input type="number" id="txtDiscount" placeholder="0" min="0" max="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Balance</label>
+                            <input type="text" id="txtBalance" disabled>
+                        </div>
+                        
+                        <button type="button" id="btnPlaceOrder" class="btn btn-success btn-block mt-3" style="padding: 15px; font-size: 1.1rem;">Place Order</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings  -->
+            <section id="settingsSection" class="page-section" style="display: none;">
+                <h2 class="section-title">SETTINGS</h2>
+                
+                <div class="two-col-layout">
+                    <div class="panel form-panel">
+                        <div class="panel-header">
+                            <h3>Account Information</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="settingsForm">
+                                <div class="input-group">
+                                    <label>New Username</label>
+                                    <input type="text" id="txtNewUsername" placeholder="Enter new username">
+                                </div>
+                                <div class="input-group">
+                                    <label>New Password</label>
+                                    <input type="password" id="txtNewPassword" placeholder="Enter new password">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" id="btnSaveSettings" class="btn btn-primary btn-block">Update Credentials</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Support & Information</h3>
+                        </div>
+                        <div class="panel-body support-info">
+                            <p><i class="fa-solid fa-circle-check text-success"></i> System is up to date.</p>
+                            <p><i class="fa-solid fa-headset text-danger"></i> +94 771 8503</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script type="module" src="controller/MainController.js"></script>
+    <script type="module" src="controller/LoginController.js"></script>
+    <script type="module" src="controller/DashboardController.js"></script>
+    <script type="module" src="controller/CustomerController.js"></script>
+    <script type="module" src="controller/ItemController.js"></script>
+    <script type="module" src="controller/OrderController.js"></script>
+    <script type="module" src="controller/SettingsController.js"></script>
+
+</body>
+</html>
+ 
